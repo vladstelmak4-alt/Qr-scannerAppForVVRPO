@@ -19,7 +19,7 @@ android {
         applicationId = "com.example.gstu_qr_scanner"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
-        minSdk = flutter.minSdkVersion
+        minSdk = 24
         targetSdk = flutter.targetSdkVersion
         // Uses the version code from pubspec.yaml. When using split APKs, 1000 * ABI_VERSION
         // is added automatically by Flutter. (https://developer.android.com/studio/build/configure-apk-splits#configure-APK-versions)
@@ -33,7 +33,17 @@ android {
         release {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
+
+            // Отключаем оптимизацию, которая ломает камеру на POCO
+            isMinifyEnabled = false
+            isShrinkResources = false
+
             signingConfig = signingConfigs.getByName("debug")
+        }
+    }
+    packaging {
+        jniLibs {
+            useLegacyPackaging = true
         }
     }
 }
